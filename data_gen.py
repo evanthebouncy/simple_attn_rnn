@@ -28,6 +28,7 @@ def gen_data_batch(batchsize, input_length):
   _seq_ins = []
   _seq_outs = []
   seq_lens = []
+  mask = []
 
   # to feed the correct data into the BiRNN, we need to have data in the form of a list
   # input_length x batch_size x input_size (the input_length is the length of the list)
@@ -41,6 +42,7 @@ def gen_data_batch(batchsize, input_length):
     _seq_ins.append(seq_i_pad)
     _seq_outs.append(seq_o_pad)
     seq_lens.append(seq_l)
+    mask.append(np.array([1.0 for i in range(seq_l)] + [0.0 for i in range(input_length - seq_l)]))
 
   # reshaping to form the right data format
   seq_ins = []
@@ -54,6 +56,6 @@ def gen_data_batch(batchsize, input_length):
     at_j = np.array(at_j, np.float32)
     seq_outs.append(at_j)
 
-  return seq_ins, seq_outs, np.array(seq_lens)
+  return seq_ins, seq_outs, np.array(seq_lens), np.array(mask)
 
 
