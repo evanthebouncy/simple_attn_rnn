@@ -47,11 +47,11 @@ def gen_data_batch(batchsize, input_length):
   seq_outs = []
   for j in range(input_length):
     at_j = [_seq_in[j] for _seq_in in _seq_ins]
-    at_j = np.array(at_j)
+    at_j = np.array(at_j, np.float32)
     seq_ins.append(at_j)
   for j in range(half_input_length):
     at_j = [_seq_out[j] for _seq_out in _seq_outs]
-    at_j = np.array(at_j)
+    at_j = np.array(at_j, np.float32)
     seq_outs.append(at_j)
 
   return seq_ins, seq_outs, np.array(seq_lens)
